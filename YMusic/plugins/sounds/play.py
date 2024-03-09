@@ -53,10 +53,10 @@ async def playWithLinks(link):
     return 0
 
 
-@app.on_message(
-    command(PLAY_COMMAND) 
+@app.on_message(command(PLAY_COMMAND) 
     & filters.group 
-    & filters.channel
+    & filters.channel 
+)
 async def _aPlay(_, message):
     start_time = time.time()
     chat_id = message.chat.id
@@ -113,8 +113,7 @@ async def _aPlay(_, message):
                 await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nSongName:- [{title[:19]}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
 
 
-@app.on_message(
-    command(PLAY_COMMAND) & SUDOERS)
+@app.on_message(command(PLAY_COMMAND) & SUDOERS)
 async def _raPlay(_, message):
     start_time = time.time()
     if (message.reply_to_message) is not None:
