@@ -1,1 +1,1 @@
-worker: python3 -m YMusic 
+worker: bash start
