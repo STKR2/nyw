@@ -14,11 +14,6 @@ import config
 
 PLAY_COMMAND = ["P", "PLAY"]
 
-PREFIX = config.PREFIX
-
-RPREFIX = config.RPREFIX
-
-
 async def ytdl(format: str, link: str):
     stdout, stderr = await bash(f'yt-dlp --geo-bypass -g -f "[height<=?720][width<=?1280]" {link}')
     if stdout:
@@ -58,7 +53,10 @@ async def playWithLinks(link):
     return 0
 
 
-@app.on_message(command(PLAY_COMMAND, PREFIX) | command(PLAY_COMMAND, RPREFIX)) & filters.group & filters.channel
+@app.on_message(
+    command(PLAY_COMMAND) 
+    & filters.group 
+    & filters.channel
 async def _aPlay(_, message):
     start_time = time.time()
     chat_id = message.chat.id
@@ -115,7 +113,8 @@ async def _aPlay(_, message):
                 await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nSongName:- [{title[:19]}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
 
 
-@app.on_message(command(PLAY_COMMAND, PREFIX) | command(PLAY_COMMAND, RPREFIX)) & SUDOERS)
+@app.on_message(
+    command(PLAY_COMMAND) & SUDOERS)
 async def _raPlay(_, message):
     start_time = time.time()
     if (message.reply_to_message) is not None:
