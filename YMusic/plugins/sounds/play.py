@@ -3,7 +3,7 @@ from YMusic.core import userbot
 from YMusic.utils import ytDetails
 from YMusic.utils.queue import QUEUE, add_to_queue
 from YMusic.misc import SUDOERS
-
+from filters import command
 from pyrogram import filters
 
 import asyncio
@@ -58,7 +58,7 @@ async def playWithLinks(link):
     return 0
 
 
-@app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & filters.group & filters.channel)
+@app.on_message(command(PLAY_COMMAND, PREFIX) | command(PLAY_COMMAND, RPREFIX)) & filters.group & filters.channel)
 async def _aPlay(_, message):
     start_time = time.time()
     chat_id = message.chat.id
@@ -115,7 +115,7 @@ async def _aPlay(_, message):
                 await m.edit(f"Tera gaana play kar rha hu aaja vc\n\nSongName:- [{title[:19]}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
 
 
-@app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & SUDOERS)
+@app.on_message(command(PLAY_COMMAND, PREFIX) | command(PLAY_COMMAND, RPREFIX)) & SUDOERS)
 async def _raPlay(_, message):
     start_time = time.time()
     if (message.reply_to_message) is not None:
