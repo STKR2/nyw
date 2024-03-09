@@ -58,7 +58,7 @@ async def playWithLinks(link):
     return 0
 
 
-@app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & filters.group)
+@app.on_message((filters.command(PLAY_COMMAND, PREFIX) | filters.command(PLAY_COMMAND, RPREFIX)) & filters.group & filters.channel)
 async def _aPlay(_, message):
     start_time = time.time()
     chat_id = message.chat.id
