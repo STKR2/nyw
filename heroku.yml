@@ -1,0 +1,5 @@
+build: 
+  docker:
+    worker: start
+run:
+  worker: python3 -m YMusic
