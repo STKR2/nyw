@@ -53,9 +53,7 @@ async def playWithLinks(link):
     return 0
 
 
-@app.on_message(command(PLAY_COMMAND) 
-    & filters.group 
-    & filters.channel 
+@app.on_message(command(PLAY_COMMAND)  
 )
 async def _aPlay(_, message):
     start_time = time.time()
