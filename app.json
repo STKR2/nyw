@@ -1,0 +1,56 @@
+{
+    "name": "سورس فريدوم",
+    "logo": "https://te.legra.ph/file/f7e1acf9338cc453a87ad.jpg",
+    "description": "An Advanced Premium Music Bot For Telegram Groups VC.",
+    "keywords": ["music", "voice chat", "telegram"],
+    "repository": "https://github.com/STKR2/all",
+    "stack": "container",
+    "env": {
+        "API_ID": {
+            "description": "لاتغيرها ابدا",
+            "value": "8934899",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "لاتغيرها ابدا",
+            "value": "bf3e98d2c351e4ad06946b4897374a1e", 
+            "required": true
+        },
+        "OWNER_ID": {
+            "description": "مالك",
+            "required": true
+            
+        }, 
+        "PREFIX": {
+            "description": "نقطة",
+            "required": true
+            
+        },
+        "LOG_GROUP_ID": {
+            "description": "كروب",
+            "required": true
+            
+        },
+        "RPREFIX": {
+            "description": "$",
+            "required": true
+            
+        },
+        "SESSION_STRING": {
+            "description": "كود بايروجرام : لازم تستخرجة من موقع فريدوم https://replit.com/@freedomSource/Session-Generator#main.py",
+            "required": true
+        }
+    },
+    "buildpacks": [
+          {
+              "url": "heroku/python"
+          },
+          {
+              "url": "heroku/nodejs"
+          },
+          {
+              "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+          }
+      ],
+      "stack": "container"
+  }
