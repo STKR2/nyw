@@ -74,7 +74,6 @@ async def song(client, message: Message):
 """
     file_stark = f"{ytdl_data['id']}.mp3"
     await client.send_audio(
-        print(f"File exists: {os.path.exists(file_stark)}")
         message.chat.id,
         audio=open(file_stark, "rb"),
         duration=int(ytdl_data["duration"]),
