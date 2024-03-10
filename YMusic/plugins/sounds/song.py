@@ -13,7 +13,6 @@ from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
 from YMusic import app
 
-
 @app.on_message(command(["تحميل", "ف"]))
 async def vsong(client, message: Message):
     urlissed = get_text(message)
@@ -36,10 +35,10 @@ async def vsong(client, message: Message):
     await asyncio.sleep(0.6)
     url = mo
     async with httpx.AsyncClient() as client_httpx:
-    response = await client_httpx.get(kekme)
-    with open("hqdefault.jpg", "wb") as img_file:
-        img_file.write(response.content)
-    sedlyf = "hqdefault.jpg"
+        response = await client_httpx.get(kekme)
+        with open("hqdefault.jpg", "wb") as img_file:
+            img_file.write(response.content)
+        sedlyf = "hqdefault.jpg"
     opts = {
         "format": "best",
         "addmetadata": True,
@@ -84,4 +83,3 @@ async def vsong(client, message: Message):
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
-
