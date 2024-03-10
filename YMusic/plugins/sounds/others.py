@@ -164,8 +164,8 @@ async def _loop(_, message):
         loop = await get_loop(message.chat.id)
         if loop == 0:
             try:
-                await set_loop(message.chat.id, 100)
-                await message.reply_text("-› تم تفعـيل التكـرار سيتـم 100 مرات .")
+                await set_loop(message.chat.id, 10000)
+                await message.reply_text("-› تم تفعـيل التكـرار سيتـم 10000 مرات .")
             except Exception as e:
                 return await message.reply_text(f"Error:- <code>{e}</code>")
 
