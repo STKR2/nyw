@@ -1,6 +1,6 @@
 from pyrogram import Client
 from pytgcalls import PyTgCalls
-
+import sys
 import config
 from ..logging import LOGGER
 
@@ -23,7 +23,4 @@ if config.SESSION_STRING:
                 await self.two.send_message(
                     config.LOG_GROUP_ID, "- تم التشغيل ."
                 )
-            except:
-                LOGGER(__name__).error(
-                    f"Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
-                )
+            
