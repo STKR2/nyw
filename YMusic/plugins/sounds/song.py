@@ -76,6 +76,7 @@ async def song(client, message: Message):
 if not os.path.exists(file_stark):
     await pablo.edit(f"**حدث خطأ أثناء تنزيل الملف**")
     return
+
 await client.send_audio(
     message.chat.id,
     audio=open(file_stark, "rb"),
@@ -92,10 +93,11 @@ await client.send_audio(
         file_stark,
     ),
 )
-    await pablo.delete()
-    for files in (sedlyf, file_stark):
-        if files and os.path.exists(files):
-            os.remove(files)
+
+await pablo.delete()
+for files in (sedlyf, file_stark):
+    if files and os.path.exists(files):
+        os.remove(files)
 
 
 def get_text(message: Message) -> [None, str]:
