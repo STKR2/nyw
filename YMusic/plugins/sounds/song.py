@@ -13,6 +13,8 @@ from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
 from youtubesearchpython import SearchVideos
 from yt_dlp import YoutubeDL
+from youtube_dl import YoutubeDL
+-dl
 from YMusic import app
 
 
