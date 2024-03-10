@@ -201,10 +201,26 @@ async def _endLoop(_, message):
 @app.on_message(command(["اوقف", "توقف"]))
 async def _stop(_, message):
     user_id = message.from_user.id if message.from_user else None
-    if user_id and (user_id in SUDOERS or user_id in [admin.user.id for admin in administrators]):
-        Text = await userbot.stop(message.chat.id)
-        try:
-            clear_queue(message.chat.id)
-        except:
-            pass
-        await message.reply_text(Text)
+    if user_id:
+        # التحقق من وجود الصلاحيات في حالة القناة
+        if message.chat.type == "channel" and message.from_user.is_member:
+            permissions = await app.get_chat_member(message.chat.id, user_id)
+            if "can_restrict_members" in permissions.permissions:
+                Text = await userbot.stop(message.chat.id)
+                try:
+                    clear_queue(message.chat.id)
+                except:
+                    pass
+                return await message.reply_text(Text)
+
+        # التحقق من صلاحيات SUDOERS في حالة الدردشة الفردية أو المجموعة
+        elif user_id in SUDOERS:
+            Text = await userbot.stop(message.chat.id)
+            try:
+                clear_queue(message.chat.id)
+            except:
+                pass
+            return await message.reply_text(Text)
+
+    # إذا لم تتحقق أي من الشروط، لا ترسل أي رد
+    return
