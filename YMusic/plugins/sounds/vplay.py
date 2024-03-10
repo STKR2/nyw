@@ -133,4 +133,4 @@ async def _vPlay(_, message):
             await playback_completed(chat_id)
         finish_time = time.time()
         total_time_taken = str(int(finish_time - start_time)) + "ثانيـةة"
-        await m.edit(f"-›تم تشغـيل الفيـديو بنجـاح \n\n-› اسـم الفيـديو : [{title[:19]}]({link})\n-› وقـت الفيـديو : {duration}\n-› انتَ تـدري شغلتـها خـلال : {total_time_taken}", disable_web_page_preview=True)
+        await m.edit(f"-› تم تشغـيل الفيـديو بنجـاح \n\n-› اسـم الفيـديو : [{title[:19]}]({link})\n-› وقـت الفيـديو : {duration}\n-› انتَ تـدري شغلتـها خـلال : {total_time_taken}", disable_web_page_preview=True)
