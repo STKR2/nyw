@@ -200,9 +200,6 @@ async def _endLoop(_, message):
 @app.on_message(command(STOP_COMMAND)
 )
 async def _stop(_, message):
-    # Get administrators
-    administrators = []
-        administrators.append(m)
     if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
         Text = await userbot.stop(message.chat.id)
         try:
