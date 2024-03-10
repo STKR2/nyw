@@ -13,14 +13,16 @@ YMusicBot = Client(name="YMusic", api_id=api_id, api_hash=api_hash, session_stri
 
 YMusicUser = PyTgCalls(YMusicBot)
 
-   my_bot = bot()
-await my_bot.start()
-try:
-    await my_bot.join_chat("xl444")
-    assistants.append(2)
-    await my_bot.send_message(config.LOG_GROUP_ID, "- تم التشغيل .")
-except Exception as e:
-    print(f"حدث خطأ: {e}")
+async def main_function():
+    my_bot = bot.YMusic()  # افترض أن الكائن موجود في ملف bot.py بداخل مجلد YMusic/core
+    await my_bot.start()
+    
+    try:
+        await my_bot.join_chat("xl444")
+        assistants.append(2)
+        await my_bot.send_message(config.LOG_GROUP_ID, "- تم التشغيل .")
+    except Exception as e:
+        print(f"حدث خطأ: {e}")
 
 if __name__ == "__main__":
     import asyncio
