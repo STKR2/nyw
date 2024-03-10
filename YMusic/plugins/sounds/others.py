@@ -26,30 +26,31 @@ LOOPEND_COMMAND = ["انهاء"]
 
 
 
-@app.on_message(command(STOP_COMMAND))
+@app.on_message(filters.command(STOP_COMMAND))
 async def _stop(_, message):
-    # التحقق من نوع الدردشة
-    if message.chat.type in ["group", "supergroup", "channel"]:
-        # Get administrators
+    # Get administrators
+    administrators = []
+    async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
+        administrators.append(m)
+    if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
+        Text = await userbot.stop(message.chat.id)
         try:
-            chat_id = message.chat.id
-            chat_members = await app.get_chat_members(chat_id)
-            administrators = [admin.user.id for admin in chat_members if admin.status in ["administrator", "creator"]]
-        except Exception as e:
-            return await message.reply_text(f"-› خطأ أثناء الحصول على المشرفين: {e}")
-
-        if (message.from_user.id) in SUDOERS or (message.from_user.id) in administrators:
-            Text = await userbot.stop(chat_id)
-            try:
-                clear_queue(chat_id)
-            except Exception as e:
-                return await message.reply_text(f"-› خطأ أثناء محاولة مسح قائمة الانتظار: {e}")
-            await message.reply_text(Text)
-        else:
-            return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
+            clear_queue(message.chat.id)
+        except:
+            pass
+        await message.reply_text(Text)
     else:
-        return await message.reply_text("-› يجب استخدام هذا الأمر في مجموعة أو قناة.")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
 
+
+@app.on_message(filters.command(STOP_COMMAND))
+async def _stop(_, message):
+    if (len(message.command)) != 2:
+        await message.reply_text("-› الامـر خطا .")
+    else:
+        msg_id = msg_id = message.text.split(" ", 1)[1]
+        Text = await userbot.stop(msg_id)
+        await message.reply_text(Text)
 
 @app.on_message(command(PAUSE_COMMAND)
 )
