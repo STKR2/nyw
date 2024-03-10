@@ -4,7 +4,7 @@ from YMusic.utils.queue import QUEUE, pop_an_item, get_queue, clear_queue
 from YMusic.utils.loop import get_loop
 from YMusic.misc import SUDOERS
 from filters import command
-from pytgcalls.types import MediaStreamfrom 
+from pytgcalls.types import MediaStream 
 # from pytgcalls.types.input_stream import AudioPiped
 # from pytgcalls.types.input_stream.quality import HighQualityAudio
 
