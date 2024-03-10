@@ -26,7 +26,7 @@ LOOPEND_COMMAND = ["انهاء"]
 
 
 
-app.on_message(command(STOP_COMMAND))
+@app.on_message(command(STOP_COMMAND))
 async def _stop(_, message):
     # التحقق من نوع الدردشة
     if message.chat.type in ["group", "supergroup", "channel"]:
