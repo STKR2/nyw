@@ -3,8 +3,8 @@ from YMusic.core import userbot
 from YMusic.utils.queue import QUEUE, pop_an_item, get_queue, clear_queue
 from YMusic.utils.loop import get_loop
 from YMusic.misc import SUDOERS
-
-from pytgcalls.types import MediaStream
+from filters import command
+from pytgcalls.types import MediaStreamfrom 
 # from pytgcalls.types.input_stream import AudioPiped
 # from pytgcalls.types.input_stream.quality import HighQualityAudio
 
@@ -16,14 +16,10 @@ import time
 
 import config
 
-SKIP_COMMAND = ["SKIP"]
+SKIP_COMMAND = ["تخطي","سكب"]
 
-PREFIX = config.PREFIX
-
-RPREFIX = config.RPREFIX
-
-
-@app.on_message((filters.command(SKIP_COMMAND, PREFIX) | filters.command(SKIP_COMMAND, RPREFIX)) & filters.group)
+@app.on_message(command(SKIP_COMMAND)
+)
 async def _aSkip(_, message):
     start_time = time.time()
     chat_id = message.chat.id
@@ -36,13 +32,13 @@ async def _aSkip(_, message):
     if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
         loop = await get_loop(chat_id)
         if loop != 0:
-            return await message.reply_text(f"Loop is enabled for the current song. Please disable it with {PREFIX}endloop to skip the song.")
+            return await message.reply_text(f"-› تم تفعـيل وضـع التكـرار للـملف المشـغل حاليـا \n-› يمكـنك تعطيـلة بأستخـدام انهاء .")
         if chat_id in QUEUE:
             chat_queue = get_queue(chat_id)
             if len(chat_queue) == 1:
                 clear_queue(chat_id)
                 await stop(chat_id)
-                await message.reply_text(f"There is no next track. I'm leaving the voice chat...")
+                await message.reply_text(f"-› ماكـو شـي بقائمـة الانتـظار تم المغـادرة .")
                 return
 
             else:
@@ -60,13 +56,13 @@ async def _aSkip(_, message):
                     )
                     finish_time = time.time()
                     pop_an_item(chat_id)
-                    total_time_taken = str(int(start_time - finish_time)) + "s"
-                    await app.send_message(chat_id, f"Playing Your Song\n\nSongName:- [{title}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
+                    total_time_taken = str(int(start_time - finish_time)) + " ثانيـة "
+                    await app.send_message(chat_id, f"-› من قائمـة الأنتـظار .\n\n-› اسـم المـلف : [{title}]({link})\n-› وقـت المـلف : {duration}\n-› انتَ تـدري شغلـتها خـلال : {total_time_taken}", disable_web_page_preview=True)
                     # return [title, duration, link, finish_time]
                 except Exception as e:
                     return await app.send_message(chat_id, f"Error:- <code>{e}</code>")
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدي صلاحـيات تـرى .")
 
 
 async def stop(chat_id):
