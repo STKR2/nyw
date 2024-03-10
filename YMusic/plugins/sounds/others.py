@@ -198,7 +198,7 @@ async def _endLoop(_, message):
         return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
 
 
-@app.on_message(command(["اوكف", 'توقف']))
+@app.on_message(command(["اوقف", "توقف"]))
 async def _stop(_, message):
     user_id = message.from_user.id if message.from_user else None
     if user_id and (user_id in SUDOERS or user_id in [admin.user.id for admin in administrators]):
@@ -208,5 +208,3 @@ async def _stop(_, message):
         except:
             pass
         await message.reply_text(Text)
-    else:
-        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
