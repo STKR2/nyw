@@ -73,22 +73,25 @@ async def song(client, message: Message):
 **🎧 طلب من العزيز:** {message.from_user.mention}
 """
     file_stark = f"{ytdl_data['id']}.mp3"
-    await client.send_audio(
-        message.chat.id,
-        audio=open(file_stark, "rb"),
-        duration=int(ytdl_data["duration"]),
-        title=str(ytdl_data["title"]),
-        performer=str(ytdl_data["uploader"]),
-        thumb=sedlyf,
-        caption=capy,
-        progress=progress,
-        progress_args=(
-            pablo,
-            c_time,
-            f"**📥 جاري التنزيل** `{urlissed}`",
-            file_stark,
-        ),
-    )
+if not os.path.exists(file_stark):
+    await pablo.edit(f"**حدث خطأ أثناء تنزيل الملف**")
+    return
+await client.send_audio(
+    message.chat.id,
+    audio=open(file_stark, "rb"),
+    duration=int(ytdl_data["duration"]),
+    title=str(ytdl_data["title"]),
+    performer=str(ytdl_data["uploader"]),
+    thumb=sedlyf,
+    caption=capy,
+    progress=progress,
+    progress_args=(
+        pablo,
+        c_time,
+        f"**📥 جاري التنزيل** `{urlissed}`",
+        file_stark,
+    ),
+)
     await pablo.delete()
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
