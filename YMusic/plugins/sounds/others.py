@@ -40,14 +40,14 @@ async def _stop(_, message):
             pass
         await message.reply_text(Text)
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
 
 
 @app.on_message(command(STOP_COMMAND)
 )
 async def _stop(_, message):
     if (len(message.command)) != 2:
-        await message.reply_text("You forgot to pass an argument")
+        await message.reply_text("-› الأمـر خـطا .")
     else:
         msg_id = msg_id = message.text.split(" ", 1)[1]
         Text = await userbot.stop(msg_id)
@@ -65,14 +65,14 @@ async def _pause(_, message):
         Text = await userbot.pause(message.chat.id)
         await message.reply_text(Text)
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
 
 
 @app.on_message(command(PAUSE_COMMAND)
 )
 async def _pause(_, message):
     if (len(message.command)) != 2:
-        await message.reply_text("You forgot to pass an argument")
+        await message.reply_text("-› الأمـر خطـا .")
     else:
         msg_id = msg_id = message.text.split(" ", 1)[1]
         Text = await userbot.pause(msg_id)
@@ -90,14 +90,14 @@ async def _resume(_, message):
         Text = await userbot.resume(message.chat.id)
         await message.reply_text(Text)
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
 
 
 @app.on_message(command(RESUME_COMMAND)
 )
 async def _resume(_, message):
     if (len(message.command)) != 2:
-        await message.reply_text("You forgot to pass an argument")
+        await message.reply_text("-› الأمـر خطـا .")
     else:
         msg_id = msg_id = message.text.split(" ", 1)[1]
         Text = await userbot.resume(msg_id)
@@ -119,7 +119,7 @@ async def _mute(_, message):
 )
 async def _mute(_, message):
     if (len(message.command)) != 2:
-        await message.reply_text("You forgot to pass an argument")
+        await message.reply_text("-› الأمـر خطـا .")
     else:
         msg_id = msg_id = message.text.split(" ", 1)[1]
         Text = await userbot.mute(msg_id)
@@ -137,7 +137,7 @@ async def _unmute(_, message):
 )
 async def _unmute(_, message):
     if (len(message.command)) != 2:
-        await message.reply_text("You forgot to pass an argument")
+        await message.reply_text("-› الأمـر خطـا .")
     else:
         msg_id = msg_id = message.text.split(" ", 1)[1]
         Text = await userbot.unmute(msg_id)
@@ -166,15 +166,15 @@ async def _loop(_, message):
         loop = await get_loop(message.chat.id)
         if loop == 0:
             try:
-                await set_loop(message.chat.id, 5)
-                await message.reply_text("Loop enabled. Now current song will be played 5 times")
+                await set_loop(message.chat.id, 100)
+                await message.reply_text("-› تم تفعـيل التكـرار سيتـم 100 مرات .")
             except Exception as e:
                 return await message.reply_text(f"Error:- <code>{e}</code>")
 
         else:
-            await message.reply_text("Loop already enabled")
+            await message.reply_text("-› تم تفعـيل التكـرار بالفـعل .")
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
 
 
 @app.on_message(command(LOOPEND_COMMAND)
@@ -187,12 +187,12 @@ async def _endLoop(_, message):
     if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
         loop = await get_loop(message.chat.id)
         if loop == 0:
-            await message.reply_text("Lopp is not enabled")
+            await message.reply_text("-› لم يتـم التكـرار .")
         else:
             try:
                 await set_loop(message.chat.id, 0)
-                await message.reply_text("Loop Disabled")
+                await message.reply_text("-› معطلـة .")
             except Exception as e:
                 return await message.reply_text(f"Error:- <code>{e}</code>")
     else:
-        return await message.reply_text("Abe saale terepe perms naa hai admins ko bol..")
+        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
