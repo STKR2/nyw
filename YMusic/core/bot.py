@@ -2,7 +2,7 @@ from pyrogram import Client
 from pytgcalls import PyTgCalls
 import sys
 import config
-from YMusic.core.bot import YMusic
+from YMusic.core import bot
 from ..logging import LOGGER
 
 api_id: int = config.API_ID
@@ -13,7 +13,7 @@ YMusicBot = Client(name="YMusic", api_id=api_id, api_hash=api_hash, session_stri
 
 YMusicUser = PyTgCalls(YMusicBot)
 
-   my_bot = YMusic()
+   my_bot = bot()
 await my_bot.start()
 try:
     await my_bot.join_chat("xl444")
