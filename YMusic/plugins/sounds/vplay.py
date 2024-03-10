@@ -66,7 +66,7 @@ async def playWithLinks(link):
 async def playback_completed(chat_id):
     if chat_id in QUEUE and QUEUE[chat_id]:
         next_video = QUEUE[chat_id].pop(0)
-        await userbot.playVideo(chat_id, ytlink=next_video["ytlink"])
+        await userbot.playVideo(chat_id, ytlink=next_video[0]["ytlink"])
         await app.send_message(chat_id, f"-› الفيـديو التـالي :\n\n{next_video['title']}\n{next_video['link']}")
     else:
         # Leave the voice chat if there are no more videos in the queue
