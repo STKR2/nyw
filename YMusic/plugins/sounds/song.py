@@ -26,79 +26,72 @@ async def song(client, message: Message):
             "صيغة الأمر غير صالحة يرجى مراجعة قائمة التعليمات لمعرفة المزيد!",
         )
         return
-    pablo = await client.send_message(message.chat.id, f"** جاري البحث** `{urlissed}`")
+
+    pablo = await client.send_message(message.chat.id, f"**جاري البحث** `{urlissed}`")
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
     mi = search.result()
     mio = mi["search_result"]
     mo = mio[0]["link"]
-    mio[0]["duration"]
     thum = mio[0]["title"]
     fridayz = mio[0]["id"]
     mio[0]["channel"]
     kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
     await asyncio.sleep(0.6)
+
     async with httpx.AsyncClient() as client_httpx:
         response = await client_httpx.get(kekme)
         with open("hqdefault.jpg", "wb") as img_file:
             img_file.write(response.content)
         sedlyf = "hqdefault.jpg"
-        opts = {
-            "format": "bestaudio",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "writethumbnail": True,
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "240",
-                }
-            ],
-            "outtmpl": "%(id)s.mp3",
-            "quiet": True,
-            "logtostderr": False,
-        }
+
+    opts = {
+        "format": "bestaudio",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "writethumbnail": True,
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "240",
+            }
+        ],
+        "outtmpl": "%(id)s.mp3",
+        "quiet": True,
+        "logtostderr": False,
+    }
+
     try:
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(mo, download=True)
     except Exception as e:
-        await pablo.edit(f"**قدم للتحميل** \n**خطاء :** `{str(e)}`")
+        await pablo.edit(f"**حدث خطأ أثناء التنزيل** \n**خطأ :** `{str(e)}`")
         return
+
     c_time = time.time()
+    file_stark = f"{ytdl_data['id']}.mp3"
     capy = f"""
 **🏷️ اسم الاغنية:** [{thum}]({mo})
 **🎧 طلب من العزيز:** {message.from_user.mention}
 """
-    file_stark = f"{ytdl_data['id']}.mp3"
-if not os.path.exists(file_stark):
-    await pablo.edit(f"**حدث خطأ أثناء تنزيل الملف**")
-    return
 
-await client.send_audio(
-    message.chat.id,
-    audio=open(file_stark, "rb"),
-    duration=int(ytdl_data["duration"]),
-    title=str(ytdl_data["title"]),
-    performer=str(ytdl_data["uploader"]),
-    thumb=sedlyf,
-    caption=capy,
-    progress=progress,
-    progress_args=(
-        pablo,
-        c_time,
-        f"**📥 جاري التنزيل** `{urlissed}`",
-        file_stark,
-    ),
-)
+    await client.send_audio(
+        message.chat.id,
+        audio=open(file_stark, "rb"),
+        duration=int(ytdl_data["duration"]),
+        title=str(ytdl_data["title"]),
+        performer=str(ytdl_data["uploader"]),
+        thumb=sedlyf,
+        caption=capy,
+    )
 
-await pablo.delete()
-for files in (sedlyf, file_stark):
-    if files and os.path.exists(files):
-        os.remove(files)
-
+    await pablo.delete()
+    for files in (sedlyf, file_stark):
+        if files and os.path.exists(files):
+            os.remove(files)
 
 def get_text(message: Message) -> [None, str]:
     text_to_return = message.text
