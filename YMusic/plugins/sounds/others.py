@@ -40,7 +40,7 @@ async def _stop(_, message):
             pass
         await message.reply_text(Text)
     else:
-        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
 
 
 @app.on_message(command(STOP_COMMAND)
@@ -65,7 +65,7 @@ async def _pause(_, message):
         Text = await userbot.pause(message.chat.id)
         await message.reply_text(Text)
     else:
-        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
 
 
 @app.on_message(command(PAUSE_COMMAND)
@@ -90,7 +90,7 @@ async def _resume(_, message):
         Text = await userbot.resume(message.chat.id)
         await message.reply_text(Text)
     else:
-        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
 
 
 @app.on_message(command(RESUME_COMMAND)
@@ -174,7 +174,7 @@ async def _loop(_, message):
         else:
             await message.reply_text("-› تم تفعـيل التكـرار بالفـعل .")
     else:
-        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
 
 
 @app.on_message(command(LOOPEND_COMMAND)
@@ -195,14 +195,13 @@ async def _endLoop(_, message):
             except Exception as e:
                 return await message.reply_text(f"Error:- <code>{e}</code>")
     else:
-        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
         
 @app.on_message(command(STOP_COMMAND)
 )
 async def _stop(_, message):
     # Get administrators
     administrators = []
-    async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.RECENT):
         administrators.append(m)
     if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
         Text = await userbot.stop(message.chat.id)
@@ -212,5 +211,5 @@ async def _stop(_, message):
             pass
         await message.reply_text(Text)
     else:
-        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
+        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
         
