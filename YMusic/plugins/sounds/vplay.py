@@ -3,7 +3,7 @@ from YMusic.core import userbot
 from YMusic.utils import ytDetails
 from YMusic.utils.queue import QUEUE, add_to_queue
 from YMusic.misc import SUDOERS
-
+from filters import command
 from pyrogram import filters
 
 import asyncio
@@ -12,11 +12,7 @@ import time
 
 import config
 
-VIDEO_PLAY = ["VP", "VPLAY"]
-
-PREFIX = config.PREFIX
-
-RPREFIX = config.RPREFIX
+VIDEO_PLAY = ["فيديو", "فيد"]
 
 
 async def ytdl(link):
@@ -51,7 +47,7 @@ async def bash(cmd):
 async def processReplyToMessage(message):
     msg = message.reply_to_message
     if msg.video or msg.video_note:
-        m = await message.reply_text("Rukja...Tera Video Download kar raha hu...")
+        m = await message.reply_text("- جـاري البحـث .")
         video_original = await msg.download()
         return video_original, m
     else:
@@ -71,13 +67,14 @@ async def playback_completed(chat_id):
     if chat_id in QUEUE and QUEUE[chat_id]:
         next_video = QUEUE[chat_id].pop(0)
         await userbot.playVideo(chat_id, ytlink=next_video["ytlink"])
-        await app.send_message(chat_id, f"Playing next video in queue:\n\n{next_video['title']}\n{next_video['link']}")
+        await app.send_message(chat_id, f"-› الفيـديو التـالي :\n\n{next_video['title']}\n{next_video['link']}")
     else:
         # Leave the voice chat if there are no more videos in the queue
         await userbot.leaveVC(chat_id)
 
 
-@app.on_message((filters.command(VIDEO_PLAY, PREFIX) | filters.command(VIDEO_PLAY, RPREFIX)) & filters.group)
+@app.on_message(command(VIDEO_PLAY)
+)
 async def _vPlay(_, message):
     start_time = time.time()
     chat_id = message.chat.id
@@ -85,9 +82,9 @@ async def _vPlay(_, message):
         if message.reply_to_message.video or message.reply_to_message.video_note:
             input_filename, m = await processReplyToMessage(message)
             if input_filename is None:
-                await message.reply_text("Video pe reply kon karega mai? ya phir video link kon dalega mai? 🤔")
+                await message.reply_text("-› الـرد على فيـديو او الأًسـم")
                 return
-            await m.edit("Rukja...Tera Video Play kar raha hu...")
+            await m.edit("-› تم تشغـيل الفيديو بنجـاح .")
             Status, Text = await userbot.playVideo(chat_id, input_filename)
             if Status == False:
                 await m.edit(Text)
@@ -96,23 +93,23 @@ async def _vPlay(_, message):
                 if chat_id in QUEUE:
                     queue_num = add_to_queue(
                         chat_id, message.reply_to_message.video.title[:19], message.reply_to_message.video.duration, message.reply_to_message.video.file_id, message.reply_to_message.link)
-                    await m.edit(f"# {queue_num}\n{message.reply_to_message.video.title[:19]}\nTera video queue me daal diya hu")
+                    await m.edit(f"-› {queue_num}\n{message.reply_to_message.video.title[:19]}\n-› تمـت الأضـافه .")
                     return
                 finish_time = time.time()
-                total_time_taken = str(int(finish_time - start_time)) + "s"
-                await m.edit(f"Tera video play kar rha hu aaja vc\n\nVideoName:- [{message.reply_to_message.video.title[:19]}]({message.reply_to_message.link})\nDuration:- {message.reply_to_message.video.duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
+                total_time_taken = str(int(finish_time - start_time)) + "ثانيـةة"
+                await m.edit(f"-› تم تشغـيل الفيـديو بنجـاح .\n\n-› اسـم الفـيديو : [{message.reply_to_message.video.title[:19]}]({message.reply_to_message.link})\n-› وقـت الفيـديو : {message.reply_to_message.video.duration}\n-› انتَ تـدري شغلـتَ خـلال : {total_time_taken}", disable_web_page_preview=True)
 
     elif (len(message.command)) < 2:
-        await message.reply_text("Link kon daalega mai? 🤔")
+        await message.reply_text("-› الرابـط خطـا .")
     else:
-        m = await message.reply_text("Rukja...Tera video dhund raha hu...")
+        m = await message.reply_text("-› يتـم التشغـيل .")
         query = message.text.split(" ", 1)[1]
         try:
             title, duration, link = ytDetails.searchYt(query)
         except Exception as e:
             await message.reply_text(f"Error :- <code>{e}</code>")
             return
-        await m.edit("Rukja...Tera video download kar raha hu...")
+        await m.edit("-› تم التشغـيل بنجـاح .")
         resp, ytlink = await ytdl(link)
         if resp == 0:
             await m.edit(f"❌ yt-dl issues detected\n\n» `{ytlink}`")
@@ -120,7 +117,7 @@ async def _vPlay(_, message):
             if chat_id in QUEUE:
                 queue_num = add_to_queue(
                     chat_id, title[:19], duration, ytlink, link)
-                await m.edit(f"# {queue_num}\n{title[:19]}\nTera Video queue me daal diya hu")
+                await m.edit(f"-› {queue_num}\n{title[:19]}\n-› تمـت الأضـافه .")
                 return
             # await asyncio.sleep(2)
             Status, Text = await userbot.playVideo(chat_id, ytlink)
@@ -135,5 +132,5 @@ async def _vPlay(_, message):
             # Trigger playback of the next video in the queue
             await playback_completed(chat_id)
         finish_time = time.time()
-        total_time_taken = str(int(finish_time - start_time)) + "s"
-        await m.edit(f"Tera video play kar rha hu aaja vc\n\nVideoName:- [{title[:19]}]({link})\nDuration:- {duration}\nTime taken to play:- {total_time_taken}", disable_web_page_preview=True)
+        total_time_taken = str(int(finish_time - start_time)) + "ثانيـةة"
+        await m.edit(f"-›تم تشغـيل الفيـديو بنجـاح \n\n-› اسـم الفيـديو : [{title[:19]}]({link})\n-› وقـت الفيـديو : {duration}\n-› انتَ تـدري شغلتـها خـلال : {total_time_taken}", disable_web_page_preview=True)
