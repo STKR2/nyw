@@ -16,4 +16,14 @@ if config.SESSION_STRING:
             await self.two.start()
             try:
                 await self.two.join_chat("xl444")
-                
+            except:
+                pass
+            assistants.append(2)
+            try:
+                await self.two.send_message(
+                    config.LOG_GROUP_ID, "- تم التشغيل ."
+                )
+            except:
+                LOGGER(__name__).error(
+                    f"Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                )
