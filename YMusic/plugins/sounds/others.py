@@ -1,4 +1,5 @@
 from pyrogram import filters
+from pyrogram import ChatPermissions
 from pyrogram.enums import ChatMembersFilter
 from filters import command
 from YMusic import app
@@ -25,26 +26,29 @@ LOOP_COMMAND = ["تكرار"]
 LOOPEND_COMMAND = ["انهاء"]
 
 
+
 @app.on_message(command(STOP_COMMAND))
 async def _stop(_, message):
     # التحقق من نوع الدردشة
     if message.chat.type in ["group", "supergroup", "channel"]:
         # Get administrators
-        administrators = []
-        async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
-            administrators.append(m)
+        try:
+            chat_id = message.chat.id
+            administrators = await app.get_chat_members(chat_id, filter="administrators")
+        except Exception as e:
+            return await message.reply_text(f"-› خطأ أثناء الحصول على المشرفين: {e}")
+
         if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
-            Text = await userbot.stop(message.chat.id)
+            Text = await userbot.stop(chat_id)
             try:
-                clear_queue(message.chat.id)
-            except:
-                pass
+                clear_queue(chat_id)
+            except Exception as e:
+                return await message.reply_text(f"-› خطأ أثناء محاولة مسح قائمة الانتظار: {e}")
             await message.reply_text(Text)
         else:
             return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
     else:
         return await message.reply_text("-› يجب استخدام هذا الأمر في مجموعة أو قناة.")
-
 
 @app.on_message(command(STOP_COMMAND)
 )
