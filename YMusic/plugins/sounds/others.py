@@ -197,32 +197,20 @@ async def _endLoop(_, message):
     else:
         return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
         
-
-@app.on_message(command(["اوقف", "توقف"]))
+@app.on_message(command(STOP_COMMAND)
+)
 async def _stop(_, message):
-    user_id = message.from_user.id if message.from_user else None
-    if user_id:
-        # التحقق من وجود الصلاحيات في حالة القناة
-        if message.chat.type == "channel" and message.from_user.is_member:
-            permissions = await app.get_chat_member(message.chat.id, user_id)
-            if "can_restrict_members" in permissions.permissions:
-                Text = await userbot.stop(message.chat.id)
-                try:
-                    clear_queue(message.chat.id)
-                    await message.reply_text("تم الإيقاف")
-                except:
-                    pass
-                return
-
-        # التحقق من صلاحيات SUDOERS في حالة الدردشة الفردية أو المجموعة
-        elif user_id in SUDOERS:
-            Text = await userbot.stop(message.chat.id)
-            try:
-                clear_queue(message.chat.id)
-                await message.reply_text("تم الإيقاف")
-            except:
-                pass
-            return
-
-    # إذا لم تتحقق أي من الشروط، لا ترسل أي رد
-    return
+    # Get administrators
+    administrators = []
+    async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.RECENT):
+        administrators.append(m)
+    if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
+        Text = await userbot.stop(message.chat.id)
+        try:
+            clear_queue(message.chat.id)
+        except:
+            pass
+        await message.reply_text(Text)
+    else:
+        return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
+        
