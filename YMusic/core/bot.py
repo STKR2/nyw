@@ -13,14 +13,10 @@ YMusicBot = Client(name="YMusic", api_id=api_id, api_hash=api_hash, session_stri
 YMusicUser = PyTgCalls(YMusicBot)
 
 if config.SESSION_STRING:
-            await self.two.start()
-            try:
-                await self.two.join_chat("xl444")
-            except:
-                pass
-            assistants.append(2)
-            try:
-                await self.two.send_message(
-                    config.LOG_GROUP_ID, "- تم التشغيل ."
-                )
-            
+    await self.two.start()
+    try:
+        await self.two.join_chat("xl444")
+        assistants.append(2)
+        await self.two.send_message(config.LOG_GROUP_ID, "- تم التشغيل .")
+    except Exception as e:
+        print(f"حدث خطأ: {e}")
