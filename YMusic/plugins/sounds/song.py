@@ -256,10 +256,10 @@ async def vsong(client, message: Message):
     await asyncio.sleep(0.6)
     url = mo
     async with httpx.AsyncClient() as client_httpx:
-    response = await client_httpx.get(kekme)
-    with open("hqdefault.jpg", "wb") as img_file:
-        img_file.write(response.content)
-    sedlyf = "hqdefault.jpg"
+        response = await client_httpx.get(kekme)
+        with open("hqdefault.jpg", "wb") as img_file:
+            img_file.write(response.content)
+        sedlyf = "hqdefault.jpg"
     opts = {
         "format": "best",
         "addmetadata": True,
