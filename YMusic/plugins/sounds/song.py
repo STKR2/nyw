@@ -86,7 +86,6 @@ async def song(client, message: Message):
     )
 else:
     await pablo.edit("حدث خطأ في تنزيل الملف. يرجى المحاولة مرة أخرى.")
-    await pablo.delete()
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
