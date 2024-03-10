@@ -28,10 +28,6 @@ LOOPEND_COMMAND = ["انهاء"]
 @app.on_message(command(STOP_COMMAND)
 )
 async def _stop(_, message):
-    # Get administrators
-    administrators = []
-    async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
-        administrators.append(m)
     if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
         Text = await userbot.stop(message.chat.id)
         try:
