@@ -39,7 +39,7 @@ async def pause(chat_id):
         await call.pause_stream(
             chat_id,
         )
-        return "Stream Paused"
+        return "-› تم الايـقاف مؤقـتا ."
     except Exception as e:
         return f"Error:- <code>{e}</code>"
 
@@ -49,7 +49,7 @@ async def resume(chat_id):
         await call.resume_stream(
             chat_id,
         )
-        return "Stream Resumed"
+        return "-› تم اكمـال التشـغيل ."
     except Exception as e:
         return f"Error:- <code>{e}</code>"
 
@@ -59,7 +59,7 @@ async def mute(chat_id):
         await call.mute_stream(
             chat_id,
         )
-        return "Stream Muted"
+        return "-› تم الكـتم بنجـاح ."
     except Exception as e:
         return f"Error:- <code>{e}</code>"
 
@@ -69,7 +69,7 @@ async def unmute(chat_id):
         await call.unmute_stream(
             chat_id,
         )
-        return "Stream Unmuted"
+        return "-› تم رفـع الكـتم ."
     except Exception as e:
         return f"Error:- <code>{e}</code>"
 
@@ -80,7 +80,7 @@ async def changeVolume(chat_id, volume: int = 200):
             chat_id,
             volume,
         )
-        return f"🎧Volume Changed To:- {volume}%"
+        return f"-› تم ضبط الصوت على :- {volume}%"
     except Exception as e:
         return f"Error:- <code>{e}</code>"
 
@@ -90,6 +90,6 @@ async def stop(chat_id):
         await call.leave_group_call(
             chat_id,
         )
-        return "Stream Ended"
+        return "-› تم ايقـاف التشغـيل ."
     except Exception as e:
         return f"Error:- <code>{e}</code>"
