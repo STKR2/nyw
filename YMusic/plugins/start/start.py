@@ -1,7 +1,7 @@
 from pyrogram import filters
 from YMusic import app
 import config
-from strings.filters import command
+from filters import command
 
 
 START_COMMAND = ["الاوامر", "ST"]
