@@ -1,9 +1,8 @@
 pyrofork
 py-tgcalls
-yt-dlp
+git+https://github.com/yt-dlp/yt-dlp.git
 tgcrypto
 httpx
-youtube-dl
 ffmpeg-python
 aiofiles
 youtube-search-python
