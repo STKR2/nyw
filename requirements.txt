@@ -3,5 +3,6 @@ py-tgcalls
 yt-dlp
 tgcrypto
 httpx
+aiofiles
 youtube-search-python
 speedtest-cli
