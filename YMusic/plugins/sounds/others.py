@@ -196,7 +196,7 @@ async def _endLoop(_, message):
                 return await message.reply_text(f"Error:- <code>{e}</code>")
     else:
         return await message.reply_text("-› ماعنـدي صـلاحيـات تـرى .")
-
+        
 
 @app.on_message(command(["اوقف", "توقف"]))
 async def _stop(_, message):
@@ -209,18 +209,20 @@ async def _stop(_, message):
                 Text = await userbot.stop(message.chat.id)
                 try:
                     clear_queue(message.chat.id)
+                    await message.reply_text("تم الإيقاف")
                 except:
                     pass
-                return await message.reply_text(Text)
+                return
 
         # التحقق من صلاحيات SUDOERS في حالة الدردشة الفردية أو المجموعة
         elif user_id in SUDOERS:
             Text = await userbot.stop(message.chat.id)
             try:
                 clear_queue(message.chat.id)
+                await message.reply_text("تم الإيقاف")
             except:
                 pass
-            return await message.reply_text(Text)
+            return
 
     # إذا لم تتحقق أي من الشروط، لا ترسل أي رد
     return
