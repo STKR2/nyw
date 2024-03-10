@@ -201,11 +201,8 @@ async def _endLoop(_, message):
 @app.on_message(command(["اوكف",'توقف"])
 )
 async def _stop(_, message):
-    # Get administrators
-    administrators = []
-    async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
-        administrators.append(m)
-    if (message.from_user.id if message.from_user else "1121532100" in SUDOERS or message.from_user.first_name if message.from_user else None in [admin.user.id for admin in administrators]:
+    user_id = message.from_user.id if message.from_user else None
+    if user_id and (user_id in SUDOERS or user_id in [admin.user.id for admin in administrators]):
         Text = await userbot.stop(message.chat.id)
         try:
             clear_queue(message.chat.id)
