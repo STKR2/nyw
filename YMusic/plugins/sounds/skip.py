@@ -29,7 +29,7 @@ async def _aSkip(_, message):
     async for m in app.get_chat_members(chat_id, filter=ChatMembersFilter.ADMINISTRATORS):
         administrators.append(m)
 
-    if message.from_user and message.from_user.id in SUDOERS or message.from_user.id in [admin.user.id for admin in administrators]:
+        if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
         loop = await get_loop(chat_id)
         if loop != 0:
             return await message.reply_text(f"-› تم تفعـيل وضـع التكـرار للـملف المشـغل حاليـا \n-› يمكـنك تعطيـلة بأستخـدام انهاء .")
