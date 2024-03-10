@@ -44,7 +44,12 @@ async def song(client, message: Message):
             img_file.write(response.content)
         sedlyf = "hqdefault.jpg"
         print(f"File exists: {os.path.exists(sedlyf)}")
-    opts = {
+    ydl_opts = {
+    # إضافة أي خيارات إضافية إذا لزم الأمر
+}
+
+with YoutubeDL(ydl_opts) as ydl:
+    ydl.update_self()
         "format": "bestaudio",
         "addmetadata": True,
         "key": "FFmpegMetadata",
