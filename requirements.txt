@@ -2,5 +2,6 @@ pyrofork
 py-tgcalls
 yt-dlp
 tgcrypto
+httpx
 youtube-search-python
 speedtest-cli
