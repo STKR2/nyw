@@ -32,7 +32,8 @@ async def _stop(_, message):
     administrators = []
     async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
         administrators.append(m)
-        if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
+        if message.from_user and message.from_user.id in SUDOERS or message.from_user.id in [admin.user.id for admin in administrators]:
+    # قم بتنفيذ الإجراءات اللاحقة هنا
         Text = await userbot.stop(message.chat.id)
         try:
             clear_queue(message.chat.id)
