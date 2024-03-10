@@ -67,7 +67,7 @@ async def song(client, message: Message):
 **🏷️ اسم الاغنية:** [{thum}]({mo})
 **🎧 طلب من العزيز:** {message.from_user.mention}
 """
-    file_stark = f"{ytdl_data['id']}.mp3"
+    if os.path.exists(file_stark):
     await client.send_audio(
         message.chat.id,
         audio=open(file_stark, "rb"),
@@ -84,6 +84,8 @@ async def song(client, message: Message):
             file_stark,
         ),
     )
+else:
+    await pablo.edit("حدث خطأ في تنزيل الملف. يرجى المحاولة مرة أخرى.")
     await pablo.delete()
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
