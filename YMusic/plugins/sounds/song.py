@@ -41,6 +41,7 @@ async def song(client, message: Message):
         with open("hqdefault.jpg", "wb") as img_file:
             img_file.write(response.content)
         sedlyf = "hqdefault.jpg"
+        print(f"File exists: {os.path.exists(sedlyf)}")
     opts = {
         "format": "bestaudio",
         "addmetadata": True,
@@ -53,7 +54,7 @@ async def song(client, message: Message):
             {
                 "key": "FFmpegExtractAudio",
                 "preferredcodec": "mp3",
-                "preferredquality": "720",
+                "preferredquality": "240",
             }
         ],
         "outtmpl": "%(id)s.mp3",
@@ -73,6 +74,7 @@ async def song(client, message: Message):
 """
     file_stark = f"{ytdl_data['id']}.mp3"
     await client.send_audio(
+        print(f"File exists: {os.path.exists(file_stark)}")
         message.chat.id,
         audio=open(file_stark, "rb"),
         duration=int(ytdl_data["duration"]),
