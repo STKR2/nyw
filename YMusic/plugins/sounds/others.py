@@ -50,18 +50,6 @@ async def _stop(_, message):
     else:
         return await message.reply_text("-› يجب استخدام هذا الأمر في مجموعة أو قناة.")
 
-@app.on_message(command(STOP_COMMAND))
-async def _stop(_, message):
-    if (len(message.command)) != 2:
-        return await message.reply_text("-› الأمـر خـطا .")
-
-    msg_id = message.command[1]
-    try:
-        Text = await userbot.stop(msg_id)
-        await message.reply_text(Text)
-    except Exception as e:
-        return await message.reply_text(f"-› خطأ أثناء تنفيذ الأمر: {e}")
-
 
 @app.on_message(command(PAUSE_COMMAND)
 )
