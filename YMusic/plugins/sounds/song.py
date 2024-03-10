@@ -37,10 +37,10 @@ async def song(client, message: Message):
     kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
     await asyncio.sleep(0.6)
     async with httpx.AsyncClient() as client_httpx:
-    response = await client_httpx.get(kekme)
-    with open("hqdefault.jpg", "wb") as img_file:
-        img_file.write(response.content)
-    sedlyf = "hqdefault.jpg"
+        response = await client_httpx.get(kekme)
+        with open("hqdefault.jpg", "wb") as img_file:
+            img_file.write(response.content)
+        sedlyf = "hqdefault.jpg"
     opts = {
         "format": "bestaudio",
         "addmetadata": True,
