@@ -25,22 +25,25 @@ LOOP_COMMAND = ["تكرار"]
 LOOPEND_COMMAND = ["انهاء"]
 
 
-@app.on_message(command(STOP_COMMAND)
-)
+@app.on_message(command(STOP_COMMAND))
 async def _stop(_, message):
-    # Get administrators
-    administrators = []
-    async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
-        administrators.append(m)
-    if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
-        Text = await userbot.stop(message.chat.id)
-        try:
-            clear_queue(message.chat.id)
-        except:
-            pass
-        await message.reply_text(Text)
+    # التحقق من نوع الدردشة
+    if message.chat.type in ["group", "supergroup", "channel"]:
+        # Get administrators
+        administrators = []
+        async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
+            administrators.append(m)
+        if (message.from_user.id) in SUDOERS or (message.from_user.id) in [admin.user.id for admin in administrators]:
+            Text = await userbot.stop(message.chat.id)
+            try:
+                clear_queue(message.chat.id)
+            except:
+                pass
+            await message.reply_text(Text)
+        else:
+            return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
     else:
-        return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
+        return await message.reply_text("-› يجب استخدام هذا الأمر في مجموعة أو قناة.")
 
 
 @app.on_message(command(STOP_COMMAND)
