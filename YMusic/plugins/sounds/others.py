@@ -26,7 +26,7 @@ LOOPEND_COMMAND = ["انهاء"]
 
 
 
-@app.on_message(filters.command(STOP_COMMAND))
+@app.on_message(command(STOP_COMMAND))
 async def _stop(_, message):
     # Get administrators
     administrators = []
@@ -43,7 +43,7 @@ async def _stop(_, message):
         return await message.reply_text("-› ماعنـدك صـلاحيـات تـرى .")
 
 
-@app.on_message(filters.command(STOP_COMMAND))
+@app.on_message(command(STOP_COMMAND))
 async def _stop(_, message):
     if (len(message.command)) != 2:
         await message.reply_text("-› الامـر خطا .")
