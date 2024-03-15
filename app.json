@@ -22,7 +22,7 @@
             
         }, 
         "PREFIX": {
-            "description": "نقطة",
+            "description": "حط نقطة",
             "required": true
             
         },
@@ -32,7 +32,7 @@
             
         },
         "RPREFIX": {
-            "description": "$",
+            "description": "اكتب $",
             "required": true
             
         },
