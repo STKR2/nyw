@@ -1,7 +1,7 @@
 {
-    "name": "سورس فريدوم",
+    "name": "سورس ابن الدورة",
     "logo": "https://te.legra.ph/file/f7e1acf9338cc453a87ad.jpg",
-    "description": "An Advanced Premium Music Bot For Telegram Groups VC.",
+    "description": "- سورس ابن الدورة اخر تخديث .",
     "keywords": ["music", "voice chat", "telegram"],
     "repository": "https://github.com/STKR2/all",
     "stack": "container",
@@ -17,27 +17,19 @@
             "required": true
         },
         "OWNER_ID": {
-            "description": "مالك",
+            "description": "ايدي المالك",
             "required": true
-            
-        }, 
-        "PREFIX": {
-            "description": "حط نقطة",
-            "required": true
+           
             
         },
         "LOG_GROUP_ID": {
-            "description": "كروب",
+            "description": "ايدي الكروب",
             "required": true
-            
-        },
-        "RPREFIX": {
-            "description": "اكتب $",
-            "required": true
+           
             
         },
         "SESSION_STRING": {
-            "description": "كود بايروجرام : لازم تستخرجة من موقع فريدوم https://replit.com/@freedomSource/Session-Generator#main.py",
+            "description": "كود بايروجرام ",
             "required": true
         }
     },
