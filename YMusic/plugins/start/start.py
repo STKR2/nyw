@@ -9,7 +9,7 @@ START_COMMAND = ["الاوامر", "ST"]
 @app.on_message(command(START_COMMAND)
 	)
 async def _start(_, message):
-	await message.reply_text("""-› اليك قائمة الأوامر من سورس فريدوم
+	await message.reply_text("""-› اليك قائمة الأوامر من سورس ابن الدورة
 
 -› تشغيل ~ تشغيل ملف صوتي في المجموعة
 -› تكرار ~ سيقوم تكرار الملف 100 مرة 
@@ -17,4 +17,4 @@ async def _start(_, message):
 -› فيديو ~  تشغيل ملف فيديو في المجموعة
 -› فيد ~ تنزيل ملف فيديو بحث
 
-~ مطور السورس @RR8R9 . """)
+-› MᥲᎥꪀƚᥲᎥꪀᥱძ ხy -› [S᥆ᥙrᥴᥱ](https://t.me/allsayid) """)
